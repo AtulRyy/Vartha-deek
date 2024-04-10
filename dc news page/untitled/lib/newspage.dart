@@ -261,10 +261,37 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
 
 
 
-class WebViewPage extends StatelessWidget {
+// class WebViewPage extends StatelessWidget {
+//   final String url;
+//
+//   WebViewPage({required this.url});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("WebView"),
+//       ),
+//       body: WebView(
+//         initialUrl: url,
+//         javascriptMode: JavascriptMode.unrestricted,
+//       ),
+//     );
+//   }
+// }
+
+class WebViewPage extends StatefulWidget {
   final String url;
 
   WebViewPage({required this.url});
+
+  @override
+  _WebViewPageState createState() => _WebViewPageState();
+}
+
+class _WebViewPageState extends State<WebViewPage> {
+  late WebViewController _controller;
+  double _progress = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -272,9 +299,38 @@ class WebViewPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("WebView"),
       ),
-      body: WebView(
-        initialUrl: url,
-        javascriptMode: JavascriptMode.unrestricted,
+      body: Column(
+        children: [
+          LinearProgressIndicator(
+            value: _progress,
+            backgroundColor: Colors.transparent,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+          ),
+          Expanded(
+            child: WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onPageStarted: (String url) {
+                setState(() {
+                  _progress = 0;
+                });
+              },
+              onPageFinished: (String url) {
+                setState(() {
+                  _progress = 1;
+                });
+              },
+              onProgress: (int progress) {
+                setState(() {
+                  _progress = progress / 100;
+                });
+              },
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller = webViewController;
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

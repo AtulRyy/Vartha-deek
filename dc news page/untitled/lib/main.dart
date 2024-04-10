@@ -5,7 +5,7 @@ import 'package:untitled/preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  WebView.platform = SurfaceAndroidWebView();
+ // WebView.platform = SurfaceAndroidWebView();
   runApp(const MyApp());
 }
 
