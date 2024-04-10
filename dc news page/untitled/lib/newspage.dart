@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class newspage extends StatefulWidget {
   @override
@@ -88,7 +90,8 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                   // Launch the URL associated with the current page index
                   launch(dataList[index]['onlineLink']);
                 }
-              },child: Container(
+              },
+                child: Container(
                 child: Column(
                   children: [
                     SizedBox(
@@ -176,7 +179,14 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                launch(dataList[currentIndex]['onlineLink']);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebViewPage(url: dataList[currentIndex]['onlineLink']),
+                  ),
+                );
+
+                //launch(dataList[currentIndex]['onlineLink']);
               },
               child: Container(
                 height: 100,
@@ -248,3 +258,25 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
     );
   }
 }
+
+
+
+class WebViewPage extends StatelessWidget {
+  final String url;
+
+  WebViewPage({required this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("WebView"),
+      ),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
+    );
+  }
+}
+
