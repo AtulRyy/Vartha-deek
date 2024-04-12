@@ -9,12 +9,9 @@ class Preferences extends StatefulWidget {
 }
 
 class _PreferencesState extends State<Preferences> {
-  bool isPressed1 = false;
-  bool isPressed2 = false;
-  bool isPressed3 = false;
-  bool isPressed4 = false;
-  bool isPressed5 = false;
-  bool isPressed6 = false;
+  List<String> interests = ['കായികം', 'രാഷ്ട്രീയം','വിനോദം','സാങ്കേതികവിദ്യ', 'കാലാവസ്ഥ', 'ഫാഷൻ' ];
+  List<bool> isPressedList = List.filled(6, false);
+  List<String> selectedInterests = []; //-----list of preferences stored in this when clicked ----
   bool isFirstTimePressed = true; // Flag to track first time press
 
   @override
@@ -57,45 +54,32 @@ class _PreferencesState extends State<Preferences> {
                       spacing: screenWidth * 0.02, // Responsive spacing
                       runSpacing: screenWidth * 0.03, // Responsive spacing
                       alignment: WrapAlignment.start,
-                      children: <Widget>[
-                        buildElevatedButton('കായികം', isPressed1, () {
-                          setState(() {
-                            isPressed1 = !isPressed1;
-                          });
-                        }),
-                        buildElevatedButton('രാഷ്ട്രീയം', isPressed2, () {
-                          setState(() {
-                            isPressed2 = !isPressed2;
-                          });
-                        }),
-                        buildElevatedButton('വിനോദം', isPressed3, () {
-                          setState(() {
-                            isPressed3 = !isPressed3;
-                          });
-                        }),
-                        buildElevatedButton(
-                            'സാങ്കേതികവിദ്യ', isPressed4, () {
-                          setState(() {
-                            isPressed4 = !isPressed4;
-                          });
-                        }),
-                        buildElevatedButton('കാലാവസ്ഥ', isPressed5, () {
-                          setState(() {
-                            isPressed5 = !isPressed5;
-                          });
-                        }),
-                        buildElevatedButton('ഫാഷൻ', isPressed6, () {
-                          setState(() {
-                            isPressed6 = !isPressed6;
-                          });
-                        }),
-                      ],
+                      children: List.generate(
+                        interests.length,
+                            (index) => buildElevatedButton(
+                          interests[index],
+                          isPressedList[index],
+                              () {
+                            setState(() {
+                              isPressedList[index] = !isPressedList[index];
+                              if (isPressedList[index]) {
+                                selectedInterests.add(interests[index]);
+                              } else {
+                                selectedInterests.remove(interests[index]);
+                              }
+                            });
+                          },
+                        ),
+                      ),
+
                     ),
                     SizedBox(height: 240),
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(_createRoute());
+                          //----------code to push list of preference to backend not yet added---------
+
                         },
                         child: Text(
                           'തുടരുക',
