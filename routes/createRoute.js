@@ -1,41 +1,48 @@
-const express=require('express')
-const router=express.Router();
-const path=require('path')
-const Article=require('../models/articleData')
-const multer=require('multer');
+const express = require('express')
+const router = express.Router();
+const path = require('path')
+const Article = require('../models/articleData')
+const multer = require('multer');
+const fs = require('fs');
 
-const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'./images')
 
-    },
-    filename:(req,file,cb)=>{
-        console.log(file);
-        cb(null,Date.now()+path.extname(file.originalname))
-    }
-})
 
-const upload=multer({storage:storage})
-
-router.get("/",(req,res)=>{
+router.get("/", (req, res) => {
     res.render('create_blog.ejs')
-    
+
 })
-router.post('/',upload.single('image'),async(req,res)=>{
-    const articleData=new Article({
-        heading:req.body.title,
-        content:req.body.articleData,
-        hyperlink:req.body.hyperlinks,
-        
-    })
-    try{
-        await articleData.save();
+
+const upload = multer();
+
+router.post('/', upload.single('image'), async (req, res) => {
+
+    try {
+        if (!req.file)
+            return res.send("File not selected");
+        const imageBuffer = req.file.buffer;
+        const encodedImage = imageBuffer.toString('base64');
+
+        const newArticle = new Article({
+            heading: req.body.title,
+            content: req.body.articleData,
+            hyperlink: req.body.hyperlinks,
+            image: {
+                data: req.file.buffer,
+                contentType: req.file.mimetype
+            }
+
+        });
+        await newArticle.save();
+        console.log("New article added successfully");
         res.redirect('/create-article');
+    } catch (err) {
+        res.send("Error saving to database");
     }
-    catch(err){
-        res.send("Error uploading to database")
-    }
+
+
+
+
 })
 
 
-module.exports=router;
+module.exports = router;

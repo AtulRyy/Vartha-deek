@@ -12,7 +12,12 @@ const articleSchema=mongoose.Schema({
         required:true,
     },
     hyperlink:{
-        type:String,
+        type:String
+    },
+    image:{
+        data:Buffer,
+        contentType:String
+
     }
 })
 

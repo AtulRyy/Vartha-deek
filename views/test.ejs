@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/output.css">
+</head>
+
+<body>
+    <div class="w-full  flex justify-center items-center py-10">
+        <div class="image-container w-[50%] my-32">
+            <%articles.forEach(article=>{ %>
+                <h1><%=article.heading%></h1>
+                <img src="data:<%=article.image.contentType%>;base64,<%=article.image.data.toString('base64')%>" class="" alt=""
+                >
+            <% })%>
+        </div>
+    </div>
+</body>
+
+</html>
