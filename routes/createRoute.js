@@ -26,7 +26,7 @@ router.post('/', upload.single('image'), async (req, res) => {
             heading: req.body.title,
             content: req.body.articleData,
             hyperlink: req.body.hyperlinks,
-            image: {
+            thumbnail: {
                 data: req.file.buffer,
                 contentType: req.file.mimetype
             }

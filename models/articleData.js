@@ -14,7 +14,7 @@ const articleSchema=mongoose.Schema({
     hyperlink:{
         type:String
     },
-    image:{
+    thumbnail:{
         data:Buffer,
         contentType:String
 
