@@ -105,10 +105,15 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
             });
           },
           itemBuilder: (context, index) {
-            String binaryImage = dataL[index]['thumbnail']; // Assuming 'thumbnail' is the key for the image
+            Map<String, dynamic> map = dataL[index];
+            print("Printing map");
+            List<int> binaryImage = List<int>.from(map['thumbnail']['data']['data']);
+            Image thumbnail = Image.memory(Uint8List.fromList(binaryImage));
+            print(binaryImage);
+             // Assuming 'thumbnail' is the key for the image
 
-          // Decode the binary image string
-          Uint8List bytes = Uint8List.fromList(binaryImage.codeUnits);
+            // Decode the binary image string
+            // Uint8List bytes = Uint8List.fromList(binaryImage.codeUnits);
             return GestureDetector(
               onTap: () {
                 setState(() {
@@ -135,10 +140,8 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                               top: 36,
                               left: 0,
                               right: 0,
-                              child: Image.memory(
-                                bytes,
+                              child: thumbnail,
                                 fit: BoxFit.cover,
-                              ),
                             ),
                             Positioned(
                               top: 350,
@@ -214,7 +217,7 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
           right: 0,
           child: GestureDetector(
             onTap: () {
-              launch(dataL[currentIndex]['hyperlink']);
+              launchUrl(dataL[currentIndex]['hyperlink']);
             },
             child: Container(
               height: 100,
