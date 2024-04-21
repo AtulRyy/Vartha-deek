@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:untitled/newspage.dart';
 import 'package:untitled/preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+ // WebView.platform = SurfaceAndroidWebView();
   runApp(const MyApp());
 }
 

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:untitled/models/articles.dart';
 import 'package:untitled/services/api.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 import 'dart:typed_data';
+
 
 class newspage extends StatefulWidget {
   @override
@@ -128,7 +132,9 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                   launch(dataL[index]['hyperlink']);
                 }
               },
-              child: Container(
+
+                child: Container(
+
                 child: Column(
                   children: [
                     SizedBox(
@@ -210,15 +216,26 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
               ),
             );
           },
-        ),
-        Positioned(
-          top: 720,
-          left: 0,
-          right: 0,
-          child: GestureDetector(
-            onTap: () {
-              launchUrl(dataL[currentIndex]['hyperlink']);
-            },
+       
+
+          ),
+          Positioned(
+            top: 720,
+            left: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebViewPage(url: dataL[currentIndex]['onlineLink']),
+                  ),
+                );
+
+                //launch(dataList[currentIndex]['onlineLink']);
+              },
+              
+
             child: Container(
               height: 100,
               width: 400, // Adjust the width as needed
@@ -234,6 +251,7 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                     fontSize: screenWidth * 0.02,
                     fontWeight: FontWeight.normal,
                     color: Colors.white,
+
                   ),
                 ),
               ),
@@ -287,3 +305,82 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
     );
   }
 }
+
+
+
+
+// class WebViewPage extends StatelessWidget {
+//   final String url;
+//
+//   WebViewPage({required this.url});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("WebView"),
+//       ),
+//       body: WebView(
+//         initialUrl: url,
+//         javascriptMode: JavascriptMode.unrestricted,
+//       ),
+//     );
+//   }
+// }
+
+class WebViewPage extends StatefulWidget {
+  final String url;
+
+  WebViewPage({required this.url});
+
+  @override
+  _WebViewPageState createState() => _WebViewPageState();
+}
+
+class _WebViewPageState extends State<WebViewPage> {
+  late WebViewController _controller;
+  double _progress = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("WebView"),
+      ),
+      body: Column(
+        children: [
+          LinearProgressIndicator(
+            value: _progress,
+            backgroundColor: Colors.transparent,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+          ),
+          Expanded(
+            child: WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onPageStarted: (String url) {
+                setState(() {
+                  _progress = 0;
+                });
+              },
+              onPageFinished: (String url) {
+                setState(() {
+                  _progress = 1;
+                });
+              },
+              onProgress: (int progress) {
+                setState(() {
+                  _progress = progress / 100;
+                });
+              },
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller = webViewController;
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
