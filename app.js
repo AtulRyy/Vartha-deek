@@ -53,5 +53,18 @@ app.get('/api/data',async(req,res)=>{
 
 
 
+//TESTING IMAGE RENDERING
+app.get('/test',async (req,res)=>{
+    try{
+        const articles=await Article.find({});
+        console.log(articles);
+        res.render('test.ejs',{articles})
+    }
+    catch(err){
+        res.send("error fetching",err)
+    }
+    
+})
+
 
 app.listen(3000, console.log("server is now running at port 3000"))
