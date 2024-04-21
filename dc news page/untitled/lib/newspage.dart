@@ -141,7 +141,7 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                               left: 0,
                               right: 0,
                               child: thumbnail,
-                                fit: BoxFit.cover,
+
                             ),
                             Positioned(
                               top: 350,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/newspage.dart';
-// import 'package:untitled/preferences.dart';
+import 'package:untitled/preferences.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: newspage(),
+      home: Preferences(),
       title: 'Vartha',
     );
   }

@@ -164,7 +164,7 @@ class _PreferencesState extends State<Preferences> {
         ),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         side: BorderSide(color: Colors.blue, width: 2),
-        primary: isPressed ? Colors.blue[100] : Colors.white,
+        backgroundColor: isPressed ? Colors.blue[100] : Colors.white,
       ),
     );
   }
