@@ -98,129 +98,97 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(children: [
-        PageView.builder(
-          // Decode the binary image string
-
-          itemCount: dataL.length,
-          onPageChanged: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          itemBuilder: (context, index) {
-            Map<String, dynamic> map = dataL[index];
-            print("Printing map");
-            List<int> binaryImage = List<int>.from(map['thumbnail']['data']['data']);
-            Image thumbnail = Image.memory(Uint8List.fromList(binaryImage));
-            print(binaryImage);
-             // Assuming 'thumbnail' is the key for the image
-
-            // Decode the binary image string
-            // Uint8List bytes = Uint8List.fromList(binaryImage.codeUnits);
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  dataList[currentIndex]['isExpanded'] =
-                      !(dataList[currentIndex]['isExpanded'] ?? false);
-                });
-              },
-              onVerticalDragEnd: (details) {
-                // Check if the swipe is in the upward direction
-                if (details.velocity.pixelsPerSecond.dy < 0) {
-                  // Launch the URL associated with the current page index
-                  launch(dataL[index]['hyperlink']);
-                }
-              },
-
+      body: Stack(
+        children: [
+          PageView.builder(
+            itemCount: dataL.length,
+            onPageChanged: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              Map<String, dynamic> map = dataL[index];
+              List<int> binaryImage = List<int>.from(
+                  map['thumbnail']['data']['data']);
+              Image thumbnail =
+              Image.memory(Uint8List.fromList(binaryImage));
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    dataL[currentIndex]['isExpanded'] =
+                    !(dataL[currentIndex]['isExpanded'] ?? false);
+                  });
+                },
+                onVerticalDragEnd: (details) {
+                  if (details.velocity.pixelsPerSecond.dy < 0) {
+                    launch(dataL[index]['hyperlink']);
+                  }
+                },
                 child: Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.9,
+                        child: Center(
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 36,
+                                left: 0,
+                                right: 0,
+                                child: thumbnail,
+                              ),
+                              Positioned(
+                                top: MediaQuery.of(context).size.height * 0.43,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height * 0.9,
+                                  width: screenWidth * 0.9,
 
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 805,
-                      child: Center(
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 36,
-                              left: 0,
-                              right: 0,
-                              child: thumbnail,
-
-                            ),
-                            Positioned(
-                              top: 350,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                padding:
-                                    EdgeInsets.only(top: 10, left: 2, right: 2),
-                                height: 460,
-                                width: 430,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 20),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text(
-                                        dataL[index]['heading'],
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.04,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text(
-                                        dataL[index]['content'],
-                                        style: TextStyle(
-                                          fontSize: screenWidth * 0.030,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 15),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 10),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start, // Align children to the start (left)
+                                    children: [
+                                      SizedBox(height: 20),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                                         child: Text(
-                                          'ഓൺലൈൻ പ്രതിനിധി...',
+                                          dataL[index]['heading'],
+                                          textAlign: TextAlign.left, // Align the text to the left
                                           style: TextStyle(
-                                            fontSize: screenWidth * 0.025,
-                                            fontWeight: FontWeight.normal,
+                                            fontSize: screenWidth * 0.04,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(height: 5),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                                        child: Text(
+                                          dataL[index]['content'],
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.03,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-       
-
+              );
+            },
           ),
           Positioned(
-            top: 720,
+            top: MediaQuery.of(context).size.height * 0.9,
             left: 0,
             right: 0,
             child: GestureDetector(
@@ -228,80 +196,77 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => WebViewPage(url: dataL[currentIndex]['onlineLink']),
+                    builder: (context) => WebViewPage(
+                      url: dataL[currentIndex]['onlineLink'],
+                    ),
                   ),
                 );
-
-                //launch(dataList[currentIndex]['onlineLink']);
               },
-              
-
-            child: Container(
-              height: 100,
-              width: 400, // Adjust the width as needed
-              padding: EdgeInsets.symmetric(horizontal: 15), // Add padding
-              decoration: BoxDecoration(
-                color: Color(0xFF1B3358),
-              ),
-              child: Center(
-                child: Text(
-                  // dataL[currentIndex]['heading']
-                  "hello",
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.02,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-
+              child: Container(
+                height: 100,
+                width: screenWidth * 0.9,
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                decoration: BoxDecoration(
+                  color: Color(0xFF1B3358),
+                ),
+                child: Center(
+                  child: Text(
+                    "hello",
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.02,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-        if (dataList[currentIndex]['isExpanded'] ?? false)
-          Positioned(
-            top: 720, // Adjust position as needed
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 100,
-              width: 430,
-              color: Colors.white,
-              child: Row(
+          if (dataL[currentIndex]['isExpanded'] ?? false)
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.9,
+              left: 0,
+              right: 0,
+              child: Container(
+                height:100,
+                width: screenWidth * 0.9,
+                color: Colors.white,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          dataList[currentIndex]['isBookmarkPressed'] =
-                              !(dataList[currentIndex]['isBookmarkPressed'] ??
-                                  false);
+                          dataL[currentIndex]['isBookmarkPressed'] =
+                          !(dataL[currentIndex]['isBookmarkPressed'] ??
+                              false);
                         });
                       },
-                      icon: Icon(
-                          (dataList[currentIndex]['isBookmarkPressed'] ?? false)
-                              ? Icons.bookmark
-                              : Icons.bookmark_outline),
+                      icon: Icon((dataL[currentIndex]['isBookmarkPressed'] ??
+                          false)
+                          ? Icons.bookmark
+                          : Icons.bookmark_outline),
                       iconSize: 40,
                     ),
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          dataList[currentIndex]['isSharePressed'] =
-                              !(dataList[currentIndex]['isSharePressed'] ??
-                                  false);
+                          dataL[currentIndex]['isSharePressed'] =
+                          !(dataL[currentIndex]['isSharePressed'] ??
+                              false);
                         });
                       },
-                      icon: Icon(
-                          (dataList[currentIndex]['isSharePressed'] ?? false)
-                              ? Icons.share_rounded
-                              : Icons.share_outlined),
+                      icon: Icon((dataL[currentIndex]['isSharePressed'] ?? false)
+                          ? Icons.share_rounded
+                          : Icons.share_outlined),
                       iconSize: 40,
                     ),
-                  ]),
+                  ],
+                ),
+              ),
             ),
-          ),
-      ]),
+        ],
+      ),
     );
   }
 }

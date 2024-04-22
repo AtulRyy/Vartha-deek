@@ -9,8 +9,8 @@ class Preferences extends StatefulWidget {
 }
 
 class _PreferencesState extends State<Preferences> {
-  List<String> interests = ['കായികം', 'രാഷ്ട്രീയം','വിനോദം','സാങ്കേതികവിദ്യ', 'കാലാവസ്ഥ', 'ഫാഷൻ' ];
-  List<bool> isPressedList = List.filled(6, false);
+  List<String> interests = ['കായികം', 'രാഷ്ട്രീയം','വിനോദം','സാങ്കേതികവിദ്യ', 'കാലാവസ്ഥ', 'ഫാഷൻ','യാത്ര','ആരോഗ്യം','ബിസിനസ്സ്','വിദ്യാഭ്യാസം','നാട്ടു','കുറ്റകൃത്യവും നീതിയും' ];
+  List<bool> isPressedList = List.filled(12, false);
   List<String> selectedInterests = []; //-----list of preferences stored in this when clicked ----
   bool isFirstTimePressed = true; // Flag to track first time press
 
