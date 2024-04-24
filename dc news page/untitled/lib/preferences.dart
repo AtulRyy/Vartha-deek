@@ -17,7 +17,7 @@ class _PreferencesState extends State<Preferences> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -49,7 +49,7 @@ class _PreferencesState extends State<Preferences> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: screenHeight*0.05),
                     Wrap(
                       spacing: screenWidth * 0.02, // Responsive spacing
                       runSpacing: screenWidth * 0.03, // Responsive spacing
@@ -73,7 +73,7 @@ class _PreferencesState extends State<Preferences> {
                       ),
 
                     ),
-                    SizedBox(height: 240),
+                    SizedBox(height: screenHeight*0.17),
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
