@@ -78,6 +78,30 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
       'onlineLink':
           'https://www.manoramaonline.com/news/latest-news/2024/04/01/v-d-satheesan-speak-against-pinarayi-vijayan.amp.html',
     },
+    {
+      'heading':
+      'ഇലക്ടറല്‍ ബോണ്ടിൽ മാത്രം സുതാര്യത വേണം! സിപിഎമ്മിന് വ്യാജ അക്കൗണ്ടുകൾ എത്രയുമാവാം:',
+      'description':
+      'ആറ്റിങ്ങൽ∙ ഇലക്ടറൽ ബോണ്ടിനെതിരെ ശബ്ദമുയർത്തുന്ന സിപിഎം, രഹസ്യ അക്കൗണ്ടുകൾ എന്തിനു സൂക്ഷിക്കുന്നുവെന് കേന്ദ്രമന്ത്രി വി. മുരളീധരൻ. സുതാര്യത ഇലക്ടറല്‍ ബോണ്ടില്‍ മാത്രം മതിയോയെന്ന് അദ്ദേഹം ചോദിച്ചു. ‘തൃശൂർ ജില്ലയിൽ മാത്രം 25 അക്കൗണ്ടുകൾ മാർക്സിസ്റ്റ് പാർട്ടിക്ക് ഉണ്ടെന്ന് ഇഡി കണ്ടെത്തി. ഈ അക്കൗണ്ടുകളില്‍ കള്ളപ്പണമാണന്നു വ്യക്തം. തൃശൂരിലെ മാത്രം കണക്കാണു പുറത്തുവന്നതെന്നും സംസ്ഥാനമാകെ',
+      'imagePath': 'lib/assets/img5.png',
+      'isExpanded': false,
+      'isBookmarkPressed': false,
+      'isSharePressed': false,
+      'onlineLink':
+      'https://www.manoramaonline.com/news/latest-news/2024/04/01/v-d-satheesan-speak-against-pinarayi-vijayan.amp.html',
+    },
+    {
+      'heading':
+      'ഇലക്ടറല്‍ ബോണ്ടിൽ മാത്രം സുതാര്യത വേണം! സിപിഎമ്മിന് വ്യാജ അക്കൗണ്ടുകൾ എത്രയുമാവാം:',
+      'description':
+      'ആറ്റിങ്ങൽ∙ ഇലക്ടറൽ ബോണ്ടിനെതിരെ ശബ്ദമുയർത്തുന്ന സിപിഎം, രഹസ്യ അക്കൗണ്ടുകൾ എന്തിനു സൂക്ഷിക്കുന്നുവെന് കേന്ദ്രമന്ത്രി വി. മുരളീധരൻ. സുതാര്യത ഇലക്ടറല്‍ ബോണ്ടില്‍ മാത്രം മതിയോയെന്ന് അദ്ദേഹം ചോദിച്ചു. ‘തൃശൂർ ജില്ലയിൽ മാത്രം 25 അക്കൗണ്ടുകൾ മാർക്സിസ്റ്റ് പാർട്ടിക്ക് ഉണ്ടെന്ന് ഇഡി കണ്ടെത്തി. ഈ അക്കൗണ്ടുകളില്‍ കള്ളപ്പണമാണന്നു വ്യക്തം. തൃശൂരിലെ മാത്രം കണക്കാണു പുറത്തുവന്നതെന്നും സംസ്ഥാനമാകെ',
+      'imagePath': 'lib/assets/img5.png',
+      'isExpanded': false,
+      'isBookmarkPressed': false,
+      'isSharePressed': false,
+      'onlineLink':
+      'https://www.manoramaonline.com/news/latest-news/2024/04/01/v-d-satheesan-speak-against-pinarayi-vijayan.amp.html',
+    },
   ];
   late Future<List<Article>> _futureArticles;
   List<Map<String, dynamic>> dataL = [];
