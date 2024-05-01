@@ -136,7 +136,8 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
             Map<String, dynamic> map = dataL[index];
             print("Printing map");
             List<int> binaryImage = List<int>.from(map['thumbnail']['data']['data']);
-            Image thumbnail = Image.memory(Uint8List.fromList(binaryImage));
+            Image thumbnail = Image.memory(Uint8List.fromList(binaryImage),
+                height:350,width:double.infinity,fit:BoxFit.cover);
             print(binaryImage);
              // Assuming 'thumbnail' is the key for the image
 
@@ -167,12 +168,13 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 36,
-                              left: 0,
-                              right: 0,
-                              child: thumbnail,
+                                top: 36,
+                                left: 0,
+                                right: 0,
+                                child: thumbnail,
 
-                            ),
+                              ),
+
                             Positioned(
                               top: 350,
                               left: 0,
