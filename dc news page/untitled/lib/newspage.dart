@@ -97,79 +97,79 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Stack(
-                children: [
-                  PageView.builder(
-                    itemCount: dataL.length,
-                    onPageChanged: (index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                    itemBuilder: (context, index) {
-                      Map<String, dynamic> map = dataL[index];
-                      List<int> binaryImage = List<int>.from(
-                          map['thumbnail']['data']['data']);
-                      Image thumbnail =
-                      Image.memory(Uint8List.fromList(binaryImage),height:350,width:double.infinity,fit:BoxFit.cover);
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            dataL[currentIndex]['isExpanded'] =
-                            !(dataL[currentIndex]['isExpanded'] ?? false);
-                          });
-                        },
-                        onVerticalDragEnd: (details) {
-                          if (details.velocity.pixelsPerSecond.dy < 0) {
-                            launch(dataL[index]['hyperlink']);
-                          }
-                        },
-                        child: Container(
-                          child: Column(
+      body: Stack(
+        children: [
+          PageView.builder(
+            itemCount: dataL.length,
+            onPageChanged: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              Map<String, dynamic> map = dataL[index];
+              List<int> binaryImage = List<int>.from(
+                  map['thumbnail']['data']['data']);
+              Image thumbnail =
+              Image.memory(Uint8List.fromList(binaryImage),height:350,width:double.infinity,fit:BoxFit.cover);
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    dataL[currentIndex]['isExpanded'] =
+                    !(dataL[currentIndex]['isExpanded'] ?? false);
+                  });
+                },
+                onVerticalDragEnd: (details) {
+                  if (details.velocity.pixelsPerSecond.dy < 0) {
+                    launch(dataL[index]['hyperlink']);
+                  }
+                },
+                child: Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.9,
+                        child: Center(
+                          child: Stack(
                             children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.9,
-                                child: Center(
-                                  child: Stack(
+                              Positioned(
+                                top: 36,
+                                left: 0,
+                                right: 0,
+                                child: thumbnail,),
+                              Positioned(
+                                top: MediaQuery.of(context).size.height * 0.43,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height * 0.9,
+                                  width: screenWidth * 0.9,
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Positioned(
-                                        top: 36,
-                                        left: 0,
-                                        right: 0,
-                                        child: thumbnail,
+                                      SizedBox(height: 20),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                                        child: Text(
+                                          dataL[index]['heading'],
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.04,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
-                                      Positioned(
-                                        top: MediaQuery.of(context).size.height * 0.43,
-                                        left: 0,
-                                        right: 0,
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height * 0.9,
-                                          width: screenWidth * 0.9,
-
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 20),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-                                                child: Text(
-                                                  dataL[index]['heading'],
-                                                  textAlign: TextAlign.left,
-                                                  style: TextStyle(
-                                                    fontSize: screenWidth * 0.04,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(height: 5),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                                                child: Text(
-                                                  dataL[index]['content'],
-                                                  style: TextStyle(
-                                                    fontSize: screenWidth * 0.03,
-                                                    fontWeight: FontWeight.w500,
+                                      SizedBox(height: 5),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                                        child: Text(
+                                          dataL[index]['content'],
+                                          style: TextStyle(
+                                            fontSize: screenWidth * 0.03,
+                                            fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
