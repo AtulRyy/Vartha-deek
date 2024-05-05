@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/newspage.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart' as BD;
+
 
 class Preferences extends StatefulWidget {
   const Preferences({Key? key}) : super(key: key);
@@ -9,8 +12,8 @@ class Preferences extends StatefulWidget {
 }
 
 class _PreferencesState extends State<Preferences> {
-  List<String> interests = ['കായികം', 'രാഷ്ട്രീയം','വിനോദം','സാങ്കേതികവിദ്യ', 'കാലാവസ്ഥ', 'ഫാഷൻ' ];
-  List<bool> isPressedList = List.filled(6, false);
+  List<String> interests = ['കായികം', 'രാഷ്ട്രീയം','വിനോദം','സാങ്കേതികവിദ്യ', 'കാലാവസ്ഥ', 'ഫാഷൻ','യാത്ര','ആരോഗ്യം','ബിസിനസ്സ്','വിദ്യാഭ്യാസം' ,'വിദ്യാഭ്യാസം'];
+  List<bool> isPressedList = List.filled(11, false);
   List<String> selectedInterests = []; //-----list of preferences stored in this when clicked ----
   bool isFirstTimePressed = true; // Flag to track first time press
 
@@ -130,27 +133,48 @@ class _PreferencesState extends State<Preferences> {
     );
   }
 
-  Widget buildElevatedButton(
-      String text, bool isPressed, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        side: BorderSide(color: Colors.blue, width: 2),
-        backgroundColor: isPressed ? Colors.blue[100] : Colors.white,
+  Widget buildElevatedButton(String text, bool isPressed, VoidCallback onPressed) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        boxShadow: [
+          BoxShadow(
+            color: isPressed ? Colors.white! : Colors.grey[400]!,
+            offset: Offset(4.0, 4.0),
+            blurRadius: 8.0,
 
+
+          ),
+          BoxShadow(
+            color: isPressed ? Colors.grey[400]! : Colors.white!,
+            offset: Offset(-4.0, -4.0),
+            blurRadius: 8.0,
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isPressed ? Colors.blue[100] : Colors.white,
+
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          elevation: 0,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          side: BorderSide(color: Colors.blue, width: 2),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }
+
+
 }
