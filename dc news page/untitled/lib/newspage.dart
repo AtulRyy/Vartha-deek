@@ -227,6 +227,7 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                       top: MediaQuery.of(context).size.height * 0.9,
                       left: 0,
                       right: 0,
+                      child: MyFadeIn(
                       child: Container(
                         height:100,
                         width: screenWidth * 0.9,
@@ -263,6 +264,7 @@ class _Page1State extends State<newspage> with TickerProviderStateMixin {
                             ),
                           ],
                         ),
+                      ),
                       ),
 
 
@@ -349,4 +351,30 @@ class _WebViewPageState extends State<WebViewPage> {
     );
   }
 }
+  class MyFadeIn extends StatefulWidget {
+  final Widget child;
+  MyFadeIn({Key? key, required this.child}) : super(key: key);
 
+  @override
+  _MyFadeInState createState() => _MyFadeInState();
+  }
+  class _MyFadeInState extends State<MyFadeIn> with TickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+  super.initState();
+  _controller = AnimationController(
+  duration: const Duration(seconds: 3),
+  vsync: this,
+  )..forward(); // Start the fade-in on initState.
+  }
+
+  @override
+  Widget build(BuildContext context) {
+  return FadeTransition(
+  opacity: _controller,
+  child: widget.child,
+  );
+  }
+  }
